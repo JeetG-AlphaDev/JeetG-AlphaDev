@@ -26,6 +26,7 @@
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=jeetg-alphadev&show_icons=true&locale=en" alt="jeetg-alphadev" /></p>
 
 
+## 📚 Blog, Skills & Contact
 
 - 📝 I post articles on [https://medium.com/@jeet.gupta.codes](https://medium.com/@jeet.gupta.codes)
 
@@ -34,6 +35,9 @@
 - 📫 How to reach me **jeet.gupta.codes@gmail.com**
 
 - 📄 Know about my experiences [under progress !](under progress !)
+
+### 
+![snake animation](https://github.com/<seu user name>/<seu user name>/blob/output/github-contribution-grid-snake2.svg)
 
 
 
