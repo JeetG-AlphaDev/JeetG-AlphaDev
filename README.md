@@ -3,7 +3,6 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=jeetg-alphadev&label=Profile%20views&color=0e75b6&style=flat" alt="jeetg-alphadev" /> </p>
 
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jeetg-alphadev" alt="jeetg-alphadev" /></a> </p>
 
 - 📝 I post articles on [https://medium.com/@jeet.gupta.codes](https://medium.com/@jeet.gupta.codes)
 
