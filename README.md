@@ -38,7 +38,7 @@
 
 
 
-<img src="https://raw.githubusercontent.com/JeetG-AlphaDev/JeetG-AlphaDev/output/snake.svg" width = 1500 alt="Snake animation" />
+
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=jeetg-alphadev&" alt="jeetg-alphadev" /></p>
 
