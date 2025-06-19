@@ -25,6 +25,18 @@
 
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=jeetg-alphadev&show_icons=true&locale=en" alt="jeetg-alphadev" /></p>
 
+
+
+- 📝 I post articles on [https://medium.com/@jeet.gupta.codes](https://medium.com/@jeet.gupta.codes)
+
+- 💬 Ask me about **html,css,javascript & React**
+
+- 📫 How to reach me **jeet.gupta.codes@gmail.com**
+
+- 📄 Know about my experiences [under progress !](under progress !)
+
+
+
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=jeetg-alphadev&" alt="jeetg-alphadev" /></p>
 
 
