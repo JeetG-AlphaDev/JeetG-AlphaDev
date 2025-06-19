@@ -36,7 +36,7 @@
 
 - 📄 Know about my experiences [under progress !](under progress !)
 
-![snake animation](https://github.com/JeetG-AlphaDev/<seu JeetG-AlphaDev>/<seu JeetG-AlphaDev>/blob/output/github-contribution-grid-snake2.svg)
+
 
 
 
