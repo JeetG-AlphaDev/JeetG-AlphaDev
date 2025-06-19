@@ -5,13 +5,14 @@
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=jeetg-alphadev&label=Profile%20views&color=0e75b6&style=flat" alt="jeetg-alphadev" /> </p>
 
 
-- 📝 I post articles on [https://medium.com/@jeet.gupta.codes](https://medium.com/@jeet.gupta.codes)
+### 🚀 About Me
 
-- 💬 Ask me about **html,css,javascript & React**
+- 🎨 Passionate Frontend Developer with expertise in **HTML**, **CSS**, and **JavaScript**.
+- 🛠️ Currently diving into **Backend Development**, exploring **Node.js**, **Express**, and **MongoDB**.
+- 🌱 Always eager to learn and embrace new technologies.
+- 💬 Ask me about **Responsive Design**, **UI/UX**, and **JavaScript Frameworks**.
+  
 
-- 📫 How to reach me **jeet.gupta.codes@gmail.com**
-
-- 📄 Know about my experiences [under progress !](under progress !)
 
 
 <h3 align="left">Languages and Tools:</h3>
