@@ -37,7 +37,7 @@
 - 📄 Know about my experiences [under progress !](under progress !)
 
 
-<img align="right" alt="Coding" width="500" src="https://i.makeagif.com/media/4-05-2022/FvBVst.gif">
+
 <img src="https://raw.githubusercontent.com/JeetG-AlphaDev/JeetG-AlphaDev/output/snake.svg" width = 1500 alt="Snake animation" />
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=jeetg-alphadev&" alt="jeetg-alphadev" /></p>
