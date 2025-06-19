@@ -36,14 +36,14 @@
 
 - 📄 Know about my experiences [under progress !](under progress !)
 
-
+<img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);" src="https://user-images.githubusercontent.com/74038190/213910845-af37a709-8995-40d6-be59-724526e3c3d7.gif" width="1085" height="474">
 
 
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=jeetg-alphadev&" alt="jeetg-alphadev" /></p>
 
 
-<img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);" src="https://user-images.githubusercontent.com/74038190/213910845-af37a709-8995-40d6-be59-724526e3c3d7.gif" width="1085" height="474">
+
 
 
 
