@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon, CloudArrowUpIcon, ChatBubbleLeftRightIcon } from '
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ResponsiveAdSlot } from '@/components/ui/ad-slot';
 
 // Mock data for featured notes
 const featuredNotes = [
@@ -125,6 +126,13 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Ad Placement */}
+      <section className="px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <ResponsiveAdSlot position="content" className="mb-8" />
         </div>
       </section>
 
