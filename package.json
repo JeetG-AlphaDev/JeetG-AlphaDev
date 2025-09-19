@@ -1,0 +1,40 @@
+{
+  "name": "noteshub-monorepo",
+  "version": "1.0.0",
+  "description": "NotesHub - A modern notes management application",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "start": "npm run start --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "clean": "npm run clean --workspaces --if-present",
+    "frontend:dev": "npm run dev --workspace=apps/frontend",
+    "frontend:build": "npm run build --workspace=apps/frontend",
+    "backend:dev": "npm run dev --workspace=apps/backend",
+    "backend:build": "npm run build --workspace=apps/backend",
+    "worker:dev": "npm run dev --workspace=apps/worker",
+    "worker:build": "npm run build --workspace=apps/worker"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "notes",
+    "monorepo",
+    "nextjs",
+    "express",
+    "typescript"
+  ],
+  "author": "Jeet Gupta <jeet.gupta.codes@gmail.com>",
+  "license": "MIT"
+}
