@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 import { LLMService } from '../services/llm.service';
 import { AuthenticatedRequest } from '../middleware/auth';
 import { AppError } from '../middleware/error';
+import { prisma } from '../db/client';
 import rateLimit from 'express-rate-limit';
 
 const router = Router();
