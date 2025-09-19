@@ -1,0 +1,228 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  firstName String?
+  lastName  String?
+  password  String?
+  avatar    String?
+  isEmailVerified Boolean @default(false)
+  emailVerificationToken String?
+  resetPasswordToken String?
+  resetPasswordExpires DateTime?
+  
+  // OAuth providers
+  googleId  String?
+  githubId  String?
+  
+  // User preferences
+  theme     String   @default("light")
+  language  String   @default("en")
+  timezone  String   @default("UTC")
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastLoginAt DateTime?
+  
+  // Relations
+  notes     Note[]
+  files     File[]
+  chatSessions ChatSession[]
+  
+  @@map("users")
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  excerpt     String?
+  tags        String[]
+  isPublic    Boolean  @default(false)
+  isPinned    Boolean  @default(false)
+  isArchived  Boolean  @default(false)
+  isFavorite  Boolean  @default(false)
+  
+  // Metadata
+  wordCount   Int      @default(0)
+  readTime    Int      @default(0)
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files       File[]
+  
+  @@map("notes")
+  @@index([userId])
+  @@index([tags])
+  @@index([createdAt])
+  @@index([isPublic])
+}
+
+model File {
+  id            String   @id @default(cuid())
+  filename      String
+  originalName  String
+  mimetype      String
+  size          Int
+  path          String
+  url           String?
+  
+  // S3 specific fields
+  s3Key         String?
+  s3Bucket      String?
+  
+  // File metadata
+  isImage       Boolean  @default(false)
+  thumbnailUrl  String?
+  
+  // Timestamps
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  noteId        String?
+  note          Note?    @relation(fields: [noteId], references: [id], onDelete: SetNull)
+  
+  @@map("files")
+  @@index([userId])
+  @@index([mimetype])
+  @@index([createdAt])
+}
+
+model ChatSession {
+  id          String   @id @default(cuid())
+  title       String?
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages    ChatMessage[]
+  
+  @@map("chat_sessions")
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model ChatMessage {
+  id          String   @id @default(cuid())
+  content     String
+  role        MessageRole
+  
+  // AI specific fields
+  tokens      Int?
+  model       String?
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  sessionId   String
+  session     ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@map("chat_messages")
+  @@index([sessionId])
+  @@index([createdAt])
+}
+
+model Admin {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  username    String   @unique
+  firstName   String
+  lastName    String
+  password    String
+  role        AdminRole @default(MODERATOR)
+  isActive    Boolean  @default(true)
+  
+  // Permissions
+  permissions String[]
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lastLoginAt DateTime?
+  
+  @@map("admins")
+}
+
+model ApiKey {
+  id          String   @id @default(cuid())
+  name        String
+  key         String   @unique
+  isActive    Boolean  @default(true)
+  permissions String[]
+  
+  // Usage tracking
+  usageCount  Int      @default(0)
+  lastUsedAt  DateTime?
+  
+  // Rate limiting
+  rateLimit   Int      @default(1000)
+  ratePeriod  String   @default("hour")
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  expiresAt   DateTime?
+  
+  @@map("api_keys")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  action      String
+  resource    String
+  resourceId  String?
+  userId      String?
+  adminId     String?
+  ipAddress   String?
+  userAgent   String?
+  metadata    Json?
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  
+  @@map("audit_logs")
+  @@index([action])
+  @@index([resource])
+  @@index([userId])
+  @@index([adminId])
+  @@index([createdAt])
+}
+
+// Enums
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  ADMIN
+  MODERATOR
+}
