@@ -1,0 +1,214 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum NoteVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
+  DISMISSED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  INCOMPLETE
+}
+
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  passwordHash      String?
+  name              String
+  avatar            String?
+  role              UserRole @default(USER)
+  isPremium         Boolean  @default(false)
+  googleId          String?  @unique
+  emailVerified     Boolean  @default(false)
+  emailVerificationToken String?
+  passwordResetToken String?
+  passwordResetExpires DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  notes             Note[]
+  annotations       Annotation[]
+  aiQueries         AIQuery[]
+  reports           Report[]
+  subscription      Subscription?
+
+  @@map("users")
+}
+
+model Note {
+  id          String          @id @default(cuid())
+  title       String
+  slug        String          @unique
+  subject     String
+  class       String?
+  tags        String[]
+  description String?
+  contentHtml String?
+  contentText String?
+  fileUrl     String
+  thumbnailUrl String?
+  visibility  NoteVisibility  @default(PUBLIC)
+  license     String?
+  version     Int             @default(1)
+  downloads   Int             @default(0)
+  views       Int             @default(0)
+  ownerId     String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  // Relations
+  owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  versions    NoteVersion[]
+  annotations Annotation[]
+  aiQueries   AIQuery[]
+  reports     Report[]
+
+  // Full-text search
+  @@index([title, subject, tags])
+  @@map("notes")
+}
+
+model NoteVersion {
+  id          String   @id @default(cuid())
+  noteId      String
+  contentHtml String?
+  contentText String?
+  fileUrl     String
+  version     Int
+  changes     String?
+  authorId    String
+  createdAt   DateTime @default(now())
+
+  // Relations
+  note        Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, version])
+  @@map("note_versions")
+}
+
+model Annotation {
+  id         String   @id @default(cuid())
+  noteId     String
+  userId     String
+  rangeStart Int
+  rangeEnd   Int
+  text       String
+  color      String?  @default("#ffeb3b")
+  createdAt  DateTime @default(now())
+
+  // Relations
+  note       Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("annotations")
+}
+
+model AIQuery {
+  id          String   @id @default(cuid())
+  userId      String
+  noteId      String?
+  question    String
+  response    String?
+  context     String?
+  tokensUsed  Int?
+  cached      Boolean  @default(false)
+  error       String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  note        Note?    @relation(fields: [noteId], references: [id], onDelete: SetNull)
+
+  @@map("ai_queries")
+}
+
+model Report {
+  id         String       @id @default(cuid())
+  noteId     String
+  reporterId String
+  reason     String
+  details    String?
+  status     ReportStatus @default(PENDING)
+  resolvedBy String?
+  resolution String?
+  createdAt  DateTime     @default(now())
+  resolvedAt DateTime?
+
+  // Relations
+  note       Note         @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  reporter   User         @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model AdSlot {
+  id       String  @id @default(cuid())
+  name     String  @unique
+  page     String
+  position String
+  code     String?
+  enabled  Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ad_slots")
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String             @unique
+  stripeSubscriptionId String?            @unique
+  stripeCustomerId     String?
+  status               SubscriptionStatus
+  plan                 String
+  priceId              String?
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  canceledAt           DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  // Relations
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+model UploadSession {
+  id        String   @id @default(cuid())
+  userId    String
+  filename  String
+  fileSize  Int
+  mimeType  String
+  uploadUrl String
+  processed Boolean  @default(false)
+  noteId    String?
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@map("upload_sessions")
+}
